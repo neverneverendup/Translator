@@ -1,7 +1,7 @@
 # Translator 🎉😁🐺
 ## 互联网在线翻译引擎爬虫集合
-包含谷歌翻译、百度翻译、有道翻译、必应翻译、小牛翻译、腾讯翻译君等引擎。
-Internet online translation engine crawler collection, including Google translation, Baidu translation, Youdao translation, Bing translation, Xiaoniu translation, Tencent translation Jun and other engines.
+包含谷歌翻译、百度翻译、有道翻译、必应翻译等引擎。
+Internet online translation engine crawler collection, including Google translation, Baidu translation, Youdao translation, Bing translation and other engines.
 
 ### 使用方法
 每个翻译爬虫都包含一个translate方法，需要传入翻译文本、源语种和目标语种，返回翻译结果。
