@@ -24,7 +24,6 @@ def get_qtv_qtk():
 
     res = requests.post(api_url, headers=headers)
     data = res.text
-    print(data)
     fy_guid = res.cookies.get('fy_guid')
     reg = re.compile(r'"qtv":"(.*?)"')
     qtv = reg.search(data).group(1)
