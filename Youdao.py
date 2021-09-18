@@ -32,7 +32,7 @@ class Youdao():
         self.headers['Content-Length'] = str(233 + len(text))
         ts = str(int(time.time() * 1000))
         salf = ts + str(random.randint(0, 9))
-        n = 'fanyideskweb' + text + salf + "n%A-rKaT5fb[Gy?;N5@Tj"
+        n = 'fanyideskweb' + text + salf + "Tbh5E8=q6U3EXe+&L[4c@"
         self.m = hashlib.md5()
         self.m.update(n.encode('utf-8'))
         sign = self.m.hexdigest()
@@ -53,6 +53,7 @@ class Youdao():
         }
         try:
             result = self.s.post(self.url, headers=self.headers, data=data, timeout=5).json()
+            print(result)
             if result != None:
                 ans = result['translateResult'][0][0]['tgt']
                 return ans

@@ -16,18 +16,18 @@ def get_filter(text):
     return text
 
 def get_qtv_qtk():
-    api_url = 'https://fanyi.qq.com/'
+    api_url = 'https://fanyi.qq.com/api/reauth12f'
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, '
                       'like Gecko) Chrome/73.0.3683.86 Safari/537.36', }
 
-    res = requests.get(api_url, headers=headers)
+    res = requests.post(api_url, headers=headers)
     data = res.text
     fy_guid = res.cookies.get('fy_guid')
-    reg = re.compile(r'var qtv = "(.*?)"')
+    reg = re.compile(r'"qtv":"(.*?)"')
     qtv = reg.search(data).group(1)
-    reg = re.compile(r'var qtk = "(.*?)"')
+    reg = re.compile(r'"qtk":"(.*?)"')
     qtk = reg.search(data).group(1)
 
     return fy_guid, qtv, qtk
