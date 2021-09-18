@@ -7,7 +7,8 @@ class Bing(object):
 
     def translate(self, from_lan, to_lan,content,):
         data = {}
-        data['from'] = '"' + from_lan + '"'
+        if from_lan != 'auto':
+            data['from'] = '"' + from_lan + '"'
         data['to'] = '"' + to_lan + '"'
         data['texts'] = '["'
         data['texts'] += content
@@ -20,6 +21,9 @@ class Bing(object):
         strUrl = self.url + data.decode() + "&appId=%223DAEE5B978BA031557E739EE1E2A68CB1FAD5909%22"
         response = urllib.request.urlopen(strUrl)
         str_data = response.read().decode('utf-8')
+        tmp, from_lang = str_data.split('"From":')
+        from_lang = from_lang[1:from_lang.find('"', 1)]
+        print("detected from_lang={}".format(from_lang))
         tmp, str_data = str_data.split('"TranslatedText":')
         translate_data = str_data[1:str_data.find('"', 1)]
         return translate_data
