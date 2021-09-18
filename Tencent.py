@@ -26,9 +26,9 @@ def get_qtv_qtk():
     data = res.text
     print(data)
     fy_guid = res.cookies.get('fy_guid')
-    #reg = re.compile(r'"qtv":"(.*?)"')
+    reg = re.compile(r'"qtv":"(.*?)"')
     qtv = reg.search(data).group(1)
-    #reg = re.compile(r'"qtk":"(.*?)"')
+    reg = re.compile(r'"qtk":"(.*?)"')
     qtk = reg.search(data).group(1)
 
     return fy_guid, qtv, qtk
