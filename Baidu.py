@@ -7,7 +7,8 @@ class Baidu(object):
 
     def __init__(self):
 
-        self.url = 'https://fanyi.baidu.com/v2transapi?from=zh&to=en'
+        #self.url = 'https://fanyi.baidu.com/v2transapi?from=zh&to=en'
+        self.url = 'https://fanyi.baidu.com/v2transapi?from={}&to={}'
         self.header = {
             'content-type': 'application/x-www-form-urlencoded;charset=UTF-8',
             'origin': 'https://fanyi.baidu.com',
@@ -106,8 +107,21 @@ class Baidu(object):
         #print('gtk '+gtk)
         return gtk
 
+    def langdetect(self, text):
+        s = requests.session()
+        data = { 'query': text }
+        response = requests.post('https://fanyi.baidu.com/langdetect', headers=self.header, data=data)
+        res = response.json()
+        if res['error'] == 0:
+            return res['lan']
+        else:
+            return 'en'
+
     def get_data(self, from_lan , to_lan, text):
         data = {}
+        if from_lan == 'auto':
+            from_lan = self.langdetect(text)
+            print("detected from_lan={}".format(from_lan))
         data['from'] = from_lan
         data['to'] = to_lan
         data['query'] = text
@@ -120,7 +134,7 @@ class Baidu(object):
     def translate(self, from_lan, to_lan, text):
         self.data = self.get_data(from_lan, to_lan, text)
         s = requests.session()
-        response = requests.post(self.url, headers=self.header, data=self.data )
+        response = requests.post(self.url.format(from_lan, to_lan), headers=self.header, data=self.data )
         return response.json()['trans_result']['data'][0]['dst']
 
 
